@@ -33,3 +33,19 @@ Is an android app created for creating, monitoring and organizing user tasks
 ![setting](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/settingsLab27.png)
 
 ![details](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/task-detailsLab27.png)
+
+
+### May 18 :
+
+- Created a TaskModel class. Each task has a title, body and a state.
+- Refactored home page of app to display a RecyclerView to display Task data using a styled fragment.
+- Created a ViewAdapter class that displays data from a list of Tasks.
+- Data that displays on home page includes title and task body, and is from hardcoded Task data.
+- User is able to touch a task in the RecyclerView, and is directed over to a detail page, where the title and the body is rendered correctly (for that task).
+
+## app views
+
+
+![main](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/mainLab28.png)
+
+![task-details](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/task-detailsLab28.png)
