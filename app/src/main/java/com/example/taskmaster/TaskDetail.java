@@ -20,6 +20,8 @@ public class TaskDetail extends AppCompatActivity {
 
         bodyDetail.setText(getIntent().getExtras().getString("body") );
 
+        TextView statusDetail= (TextView) findViewById(R.id.statusDetail);
 
+        statusDetail.setText(getIntent().getExtras().getString("status") );
     }
 }
