@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="214dp"
+        android:layout_height="22dp"
+        android:text="Username "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.955" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="213dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/Save_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Save_username"
+        android:layout_width="213dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="304dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
