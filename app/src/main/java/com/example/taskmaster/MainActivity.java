@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         setTitle("Welcome To Task Master");
 
+
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText(spref.getString("Username",""));
+        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
 
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText(spref.getString("Username",""));
+
+       welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
 
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();
@@ -91,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         linear.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linear);
         recyclerView.setAdapter(adapter);
+
+
+      
 
     }
 

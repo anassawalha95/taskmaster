@@ -2,10 +2,12 @@ package com.example.taskmaster;
 
 import androidx.annotation.NonNull;
 
+
 import androidx.room.Room;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,10 +33,12 @@ public class AddTask extends AppCompatActivity {
 
 
 
+
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();
 
         TaskDao taskDao = db.taskDao();
+
 
 
 
@@ -64,6 +68,7 @@ public class AddTask extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -75,5 +80,4 @@ public class AddTask extends AppCompatActivity {
     }
 
 
-}
 
