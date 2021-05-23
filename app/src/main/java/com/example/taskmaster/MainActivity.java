@@ -17,6 +17,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTaskListener {
 
     public List <TaskModel> tasks;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("Welcome To Task Master");
 
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
@@ -37,8 +41,18 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();
 
         TaskDao taskDao = db.taskDao();
+
         tasks = taskDao.getall();
 
+
+//        for(int i = 0; i<tasks.size();i++){
+//            if (tasks.get(i).getBody().length() > 30)
+//            {
+//
+//                tasks.get(i).setBody(tasks.get(i).getBody().substring(0, 30));
+//            }
+//
+//        }
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

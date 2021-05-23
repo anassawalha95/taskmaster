@@ -1,15 +1,18 @@
 package com.example.taskmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+
 import androidx.room.Room;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 public class AddTask extends AppCompatActivity {
@@ -18,6 +21,14 @@ public class AddTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+        setTitle("Add New Task");
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
 
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -38,9 +49,9 @@ public class AddTask extends AppCompatActivity {
 
                 EditText title=(EditText) findViewById(R.id.add_task_title);
                 EditText body=(EditText) findViewById(R.id.add_task_body);
-
-                Log.d("ttttttttttttttttttttt", "title: "+title.getText().toString());
-                Log.d("tttttttttttttttttttttt", "body: "+body.getText().toString());
+//
+//                Log.d("ttttttttttttttttttttt", "title: "+title.getText().toString());
+//                Log.d("tttttttttttttttttttttt", "body: "+body.getText().toString());
 
 
                 TaskModel task =new TaskModel(title.getText().toString(),body.getText().toString(),"New");
@@ -53,6 +64,16 @@ public class AddTask extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
 
