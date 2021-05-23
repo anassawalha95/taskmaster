@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity  {
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText(spref.getString("Username",""));
+        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
 
     }
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity  {
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText(spref.getString("Username",""));
+        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
     }
 
     public void renderAddTaskView(View view) {
