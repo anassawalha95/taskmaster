@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("Welcome To Task Master");
+
+
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
