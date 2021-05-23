@@ -29,7 +29,15 @@ public class Settings extends AppCompatActivity {
 
         Button bt = (Button) findViewById(R.id.Save_username);
         EditText userNameText= (EditText) findViewById(R.id.username);
+        setTitle("Settings");
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         bt.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 

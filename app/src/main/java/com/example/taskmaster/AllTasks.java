@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
+
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskListener {
+
+public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskListener{
 
     public List<TaskModel> tasks;
     RecyclerView recyclerView ;
@@ -29,7 +31,6 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
 
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
-
 
 
 
@@ -56,7 +57,8 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
 
     @Override
     public void onTaskClick(int position) {
-        Log.d("note clicked"," "+position);
+       // Log.d("note clicked"," "+position);
+
 //        TextView titleDetail= (TextView) findViewById(R.id.titleDetail);
 //        String title=tasks.get(position).getTitle();
 //        titleDetail.setText(title);
@@ -64,7 +66,8 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
 //        TextView bodyDetail= (TextView) findViewById(R.id.bodyDetail);
 //        String body=tasks.get(position).getBody();
 //        titleDetail.setText(body);
-        Log.d("note clicked","clicked");
+
+       // Log.d("note clicked","clicked");
 
         Intent intent =new Intent(this, TaskDetail.class);
         intent.putExtra("title",this.tasks.get(position).getTitle());

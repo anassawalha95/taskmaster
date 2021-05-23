@@ -49,3 +49,18 @@ Is an android app created for creating, monitoring and organizing user tasks
 ![main](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/mainLab28.png)
 
 ![task-details](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/task-detailsLab28.png)
+
+
+
+### May 19 :
+
+- Modified Add Task form to save the data entered in as a Task in the local SQLite database.
+- Refactored homepage RecyclerView to display all Task entities in database.
+- Description and title of a tapped task is displayed on the detail page along with the status
+
+## app views
+
+
+![main](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/mainLab29.png)
+
+![task-details](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/task-detailsLab29.png)

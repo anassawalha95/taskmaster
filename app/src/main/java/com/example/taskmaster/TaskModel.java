@@ -1,8 +1,12 @@
 package com.example.taskmaster;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
+@Entity(tableName = "tasks")
 public class TaskModel {
-
-
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
     public long id;
 
     private String title ;

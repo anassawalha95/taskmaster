@@ -1,25 +1,29 @@
 package com.example.taskmaster;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTaskListener {
 
-    public List<TaskModel> tasks;
+    public List <TaskModel> tasks;
     RecyclerView recyclerView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +38,23 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
 
+        TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
+                TaskDatabase.class, "tasks").allowMainThreadQueries().build();
 
-        tasks= new ArrayList<>();
+        TaskDao taskDao = db.taskDao();
+
+        tasks = taskDao.getall();
 
 
-        TaskModel task1 =new TaskModel("buy groceries ","Lorem ipsum , ","New");
-        TaskModel task2 =new TaskModel("buy new car "," imperdiet a, . ","New");
-        TaskModel task3 =new TaskModel("Invest in bitcoin ","   Integer tincidunt.","New");
+//        for(int i = 0; i<tasks.size();i++){
+//            if (tasks.get(i).getBody().length() > 30)
+//            {
+//
+//                tasks.get(i).setBody(tasks.get(i).getBody().substring(0, 30));
+//            }
+//
+//        }
 
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         ViewAdapter adapter = new ViewAdapter(tasks,this);
@@ -54,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         recyclerView.setLayoutManager(linear);
         recyclerView.setAdapter(adapter);
 
+
     }
 
     @Override
@@ -61,11 +72,31 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         super.onResume();
 
 
+
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
+
+       welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
+
+        TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
+                TaskDatabase.class, "tasks").allowMainThreadQueries().build();
+
+        TaskDao taskDao = db.taskDao();
+        tasks = taskDao.getall();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        ViewAdapter adapter = new ViewAdapter(tasks,this);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linear=  new LinearLayoutManager(this);
+        linear.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(linear);
+        recyclerView.setAdapter(adapter);
+
+
+      
+
     }
 
     public void renderAddTaskView(View view) {
@@ -83,10 +114,6 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         startActivity(intent);
     }
 
-    public void renderTaskDetailsView(View view) {
-        Intent intent = new Intent(this, TaskDetail.class);
-        startActivity(intent);
-    }
 
 
     @Override
