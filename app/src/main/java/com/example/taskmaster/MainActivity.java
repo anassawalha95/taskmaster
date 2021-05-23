@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText(spref.getString("Username",""));
+        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
 
 
         tasks= new ArrayList<>();
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        welcome_msg.setText(spref.getString("Username",""));
+        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
     }
 
     public void renderAddTaskView(View view) {
