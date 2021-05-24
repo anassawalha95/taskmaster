@@ -18,6 +18,15 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        setTitle("Settings");
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         Button bt = (Button) findViewById(R.id.Save_username);
         EditText userNameText= (EditText) findViewById(R.id.username);
         setTitle("Settings");
@@ -41,6 +50,7 @@ public class Settings extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

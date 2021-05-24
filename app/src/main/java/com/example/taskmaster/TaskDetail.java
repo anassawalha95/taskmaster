@@ -1,6 +1,8 @@
 package com.example.taskmaster;
 
 import androidx.annotation.NonNull;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -16,6 +18,7 @@ public class TaskDetail extends AppCompatActivity {
         setContentView(R.layout.activity_task_detail);
 
         setTitle("Task Details");
+
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
 
@@ -34,6 +37,16 @@ public class TaskDetail extends AppCompatActivity {
 
         statusDetail.setText("Status: "+getIntent().getExtras().getString("status") );
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
