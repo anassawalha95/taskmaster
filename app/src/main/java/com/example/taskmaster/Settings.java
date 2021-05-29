@@ -1,3 +1,4 @@
+
 package com.example.taskmaster;
 
 import android.content.SharedPreferences;
@@ -50,4 +51,5 @@ public class Settings extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

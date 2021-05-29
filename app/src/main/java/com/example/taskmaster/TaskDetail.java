@@ -1,11 +1,10 @@
 package com.example.taskmaster;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 public class TaskDetail extends AppCompatActivity {
@@ -16,6 +15,7 @@ public class TaskDetail extends AppCompatActivity {
         setContentView(R.layout.activity_task_detail);
 
         setTitle("Task Details");
+
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
 
@@ -43,4 +43,6 @@ public class TaskDetail extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

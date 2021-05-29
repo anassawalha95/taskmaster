@@ -15,6 +15,8 @@ import androidx.room.Room;
 
 import java.util.List;
 
+
+
 public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTaskListener {
 
     public List <TaskModel> tasks;
@@ -124,4 +126,5 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         intent.putExtra("status",this.tasks.get(position).getState());
         startActivity(intent);
     }
+
 }
