@@ -64,3 +64,7 @@ Is an android app created for creating, monitoring and organizing user tasks
 ![main](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/mainLab29.png)
 
 ![task-details](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/task-detailsLab29.png)
+
+### May 24 :
+
+- Add Espresso tests 
