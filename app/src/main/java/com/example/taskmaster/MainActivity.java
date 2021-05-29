@@ -1,24 +1,21 @@
 package com.example.taskmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import java.util.List;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+
 
 public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTaskListener {
 
@@ -31,12 +28,11 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         setTitle("Welcome To Task Master");
 
-
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
+        String welcome_msg_text=spref.getString("Username","");
+        welcome_msg.setText(welcome_msg_text);
 
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();
@@ -77,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-
-       welcome_msg.setText("{"+ spref.getString("Username","username")+"}'s Tasks");
+        welcome_msg.setText(spref.getString("Username",""));
 
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();
@@ -93,9 +88,6 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         linear.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linear);
         recyclerView.setAdapter(adapter);
-
-
-      
 
     }
 
@@ -134,4 +126,5 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         intent.putExtra("status",this.tasks.get(position).getState());
         startActivity(intent);
     }
+
 }
