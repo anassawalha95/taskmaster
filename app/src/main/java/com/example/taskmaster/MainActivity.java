@@ -1,24 +1,19 @@
 package com.example.taskmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTaskListener {
 
@@ -34,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
         SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        welcome_msg.setText(spref.getString("Username",""));
+        String welcome_msg_text=spref.getString("Username","");
+        welcome_msg.setText(welcome_msg_text);
 
         TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
                 TaskDatabase.class, "tasks").allowMainThreadQueries().build();

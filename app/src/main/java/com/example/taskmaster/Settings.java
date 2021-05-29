@@ -1,9 +1,5 @@
 package com.example.taskmaster;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,6 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Settings extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class Settings extends AppCompatActivity {
 
                 SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = spref.edit();
-                editor.putString("Username", userNameText.getText().toString());
+                editor.putString("Username", userNameText.getText().toString()+"\'s tasks");
                 editor.apply();
                 finish();
             }
