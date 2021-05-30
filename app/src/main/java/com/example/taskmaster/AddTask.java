@@ -1,6 +1,7 @@
 package com.example.taskmaster;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Status;
+import com.amplifyframework.datastore.generated.model.Task;
 
 public class AddTask extends AppCompatActivity {
 
@@ -26,11 +32,15 @@ public class AddTask extends AppCompatActivity {
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
 
-        TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
-                TaskDatabase.class, "tasks").allowMainThreadQueries().build();
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
 
-        TaskDao taskDao = db.taskDao();
 
 
         Toast toast = Toast.makeText(getApplicationContext(), "Task Created", Toast.LENGTH_LONG);
@@ -42,17 +52,18 @@ public class AddTask extends AppCompatActivity {
 
                 EditText title = (EditText) findViewById(R.id.add_task_title);
                 EditText body = (EditText) findViewById(R.id.add_task_body);
-//
-//                Log.d("ttttttttttttttttttttt", "title: "+title.getText().toString());
-//                Log.d("tttttttttttttttttttttt", "body: "+body.getText().toString());
 
-
-                TaskModel task = new TaskModel(title.getText().toString(), body.getText().toString(), "New");
-
-                taskDao.saveNewTask(task);
-
+                Task item = Task.builder()
+                        .title( title.getText().toString())
+                        .status(Status.New)
+                        .description(body.getText().toString())
+                        .build();
                 toast.show();
 
+                Amplify.DataStore.save(item,
+                        success -> Log.i("Tutorial", "Saved item: " + success.item().getTitle() +" "+success.item().getDescription()),
+                                   error -> Log.e("Tutorial", "Could not save item to DataStore", error)
+                );
                 finish();
             }
         });
