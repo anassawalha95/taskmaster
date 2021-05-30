@@ -68,3 +68,8 @@ Is an android app created for creating, monitoring and organizing user tasks
 ### May 24 :
 
 - Add Espresso tests 
+
+### May 30 :
+
+- Added the functionality to use AWS Amplify 
+- build and connected to the DynamoDB using graphQL 
