@@ -1,16 +1,20 @@
 package com.example.taskmaster;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-
-import android.view.MenuItem;
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +22,11 @@ import java.util.List;
 
 public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskListener{
 
-    public List<TaskModel> tasks;
+    public List<Task> tasks;
     RecyclerView recyclerView ;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +39,33 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
 
-
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
 
         tasks= new ArrayList<>();
+        Amplify.DataStore.query(Task.class,
+                tasks -> {
+                    while (tasks.hasNext()) {
+                        Task task = tasks.next();
+
+                        if (task.getTitle() != null) {
+
+                            this.tasks.add(task);
+                        }
+
+                    }
+                },
+                failure -> Log.e("Tutorial", "Could not query DataStore", failure)
+        );
 
 
-        TaskModel task1 =new TaskModel("buy groceries ","Lorem ipsum , ","New");
-        TaskModel task2 =new TaskModel("buy new car "," imperdiet a, . ","New");
-        TaskModel task3 =new TaskModel("Invest in bitcoin ","   Integer tincidunt.","New");
 
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         ViewAdapter adapter = new ViewAdapter(tasks,this);
@@ -56,23 +77,51 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
+
+        tasks= new ArrayList<>();
+        Amplify.DataStore.query(Task.class,
+                tasks -> {
+                    while (tasks.hasNext()) {
+                        Task task = tasks.next();
+
+                        if (task.getTitle() != null) {
+
+                            this.tasks.add(task);
+                        }
+
+                    }
+                },
+                failure -> Log.e("Tutorial", "Could not query DataStore", failure)
+        );
+
+
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        ViewAdapter adapter = new ViewAdapter(tasks,this);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linear=  new LinearLayoutManager(this);
+        linear.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(linear);
+        recyclerView.setAdapter(adapter);
+    }
+    @Override
     public void onTaskClick(int position) {
-       // Log.d("note clicked"," "+position);
-
-//        TextView titleDetail= (TextView) findViewById(R.id.titleDetail);
-//        String title=tasks.get(position).getTitle();
-//        titleDetail.setText(title);
-//
-//        TextView bodyDetail= (TextView) findViewById(R.id.bodyDetail);
-//        String body=tasks.get(position).getBody();
-//        titleDetail.setText(body);
-
-       // Log.d("note clicked","clicked");
-
         Intent intent =new Intent(this, TaskDetail.class);
         intent.putExtra("title",this.tasks.get(position).getTitle());
-        intent.putExtra("body",this.tasks.get(position).getBody());
-        intent.putExtra("status",this.tasks.get(position).getState());
+        intent.putExtra("body",this.tasks.get(position).getDescription());
+        intent.putExtra("status",this.tasks.get(position).getStatus().toString());
         startActivity(intent);
     }
 
