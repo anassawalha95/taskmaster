@@ -30,7 +30,7 @@ Is an android app created for creating, monitoring and organizing user tasks
 
 ![main](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/mainLab27.png)
 
-![setting](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/settingsLab27.png)
+![setting](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/login.PNG)
 
 ![details](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/task-detailsLab27.png)
 
