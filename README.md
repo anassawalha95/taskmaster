@@ -80,4 +80,4 @@ Is an android app created for creating, monitoring and organizing user tasks
 - Added the functionality to use AWS coginto for login signup 
 
 
-![login](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/login.png)
+![login](https://github.com/anassawalha95/taskmaster/blob/main/screenshots/login.PNG)
