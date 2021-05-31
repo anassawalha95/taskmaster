@@ -1,5 +1,6 @@
 package com.amplifyframework.datastore.generated.model;
 
+import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +28,8 @@ public final class Task implements Model {
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="Status") Status status;
   private final @ModelField(targetType="String") String description;
+  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
+  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
   }
@@ -41,6 +44,14 @@ public final class Task implements Model {
   
   public String getDescription() {
       return description;
+  }
+  
+  public Temporal.DateTime getCreatedAt() {
+      return createdAt;
+  }
+  
+  public Temporal.DateTime getUpdatedAt() {
+      return updatedAt;
   }
   
   private Task(String id, String title, Status status, String description) {
@@ -61,7 +72,9 @@ public final class Task implements Model {
       return ObjectsCompat.equals(getId(), task.getId()) &&
               ObjectsCompat.equals(getTitle(), task.getTitle()) &&
               ObjectsCompat.equals(getStatus(), task.getStatus()) &&
-              ObjectsCompat.equals(getDescription(), task.getDescription());
+              ObjectsCompat.equals(getDescription(), task.getDescription()) &&
+              ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
       }
   }
   
@@ -72,6 +85,8 @@ public final class Task implements Model {
       .append(getTitle())
       .append(getStatus())
       .append(getDescription())
+      .append(getCreatedAt())
+      .append(getUpdatedAt())
       .toString()
       .hashCode();
   }
@@ -83,7 +98,9 @@ public final class Task implements Model {
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("status=" + String.valueOf(getStatus()) + ", ")
-      .append("description=" + String.valueOf(getDescription()))
+      .append("description=" + String.valueOf(getDescription()) + ", ")
+      .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }

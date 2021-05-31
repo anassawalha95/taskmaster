@@ -1,0 +1,46 @@
+{
+  "taskmaster": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newtaskmaster-taskmaster-234309-authRole",
+      "UnauthRoleArn": "arn:aws:iam::301210120197:role/amplify-newtaskmaster-taskmaster-234309-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::301210120197:role/amplify-newtaskmaster-taskmaster-234309-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newtaskmaster-taskmaster-234309-deployment",
+      "UnauthRoleName": "amplify-newtaskmaster-taskmaster-234309-unauthRole",
+      "StackName": "amplify-newtaskmaster-taskmaster-234309",
+      "StackId": "arn:aws:cloudformation:us-east-1:301210120197:stack/amplify-newtaskmaster-taskmaster-234309/a7422dd0-c187-11eb-a892-0ef7f3f34731",
+      "AmplifyAppId": "d2tub4ksc1orbl"
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newtaskmaster-dev-183957-authRole",
+      "UnauthRoleArn": "arn:aws:iam::755774943694:role/amplify-newtaskmaster-dev-183957-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::755774943694:role/amplify-newtaskmaster-dev-183957-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newtaskmaster-dev-183957-deployment",
+      "UnauthRoleName": "amplify-newtaskmaster-dev-183957-unauthRole",
+      "StackName": "amplify-newtaskmaster-dev-183957",
+      "StackId": "arn:aws:cloudformation:us-east-1:755774943694:stack/amplify-newtaskmaster-dev-183957/76ec1020-c226-11eb-8337-0e443e7db6f3",
+      "AmplifyAppId": "d36xao7p4zrc9w"
+    }
+  },
+  "first": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newtaskmaster-first-192426-authRole",
+      "UnauthRoleArn": "arn:aws:iam::301210120197:role/amplify-newtaskmaster-first-192426-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::301210120197:role/amplify-newtaskmaster-first-192426-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newtaskmaster-first-192426-deployment",
+      "UnauthRoleName": "amplify-newtaskmaster-first-192426-unauthRole",
+      "StackName": "amplify-newtaskmaster-first-192426",
+      "StackId": "arn:aws:cloudformation:us-east-1:301210120197:stack/amplify-newtaskmaster-first-192426/ad0cd120-c22c-11eb-ab44-127e1ad2bd25",
+      "AmplifyAppId": "d2tub4ksc1orbl"
+    },
+    "categories": {
+      "auth": {
+        "newtaskmasterb8ddb07c": {}
+      }
+    }
+  }
+}
