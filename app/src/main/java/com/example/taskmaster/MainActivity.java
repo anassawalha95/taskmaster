@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -43,12 +45,35 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         try {
             Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+
             Amplify.configure(getApplicationContext());
 
             Log.i("Tutorial", "Initialized Amplify");
         } catch (AmplifyException e) {
             Log.e("Tutorial", "Could not initialize Amplify", e);
         }
+
+
+
+
+
+
+        Amplify.Auth.fetchAuthSession(
+                result ->{
+                    if(!result.isSignedIn()){
+                        Amplify.Auth.signInWithWebUI(
+                                this,
+                                results -> Log.i("AuthQuickStart failed1", result.toString()),
+                                error -> Log.e("AuthQuickStart failed2", error.toString())
+                        );
+                    }
+                   },
+                error -> Log.e("AuthQuickStart ", error.toString())
+        );
+
+
 
 
         tasks= new ArrayList<>();
@@ -91,16 +116,21 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         welcome_msg.setText(spref.getString("Username",""));
 
 
+        Amplify.Auth.fetchAuthSession(
+                result ->{
+                    if(!result.isSignedIn()){
+                        Amplify.Auth.signInWithWebUI(
+                                this,
+                                results -> Log.i("AuthQuickStart failed1", result.toString()),
+                                error -> Log.e("AuthQuickStart failed2", error.toString())
+                        );
+                    }
+                },
+                error -> Log.e("AuthQuickStart ", error.toString())
+        );
 
 
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.configure(getApplicationContext());
 
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
 
 
         tasks= new ArrayList<>();
@@ -146,6 +176,15 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         startActivity(intent);
     }
 
+    public void logout(View view) {
+        Amplify.Auth.signOut(
+                () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 
     @Override
@@ -160,5 +199,15 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         startActivity(intent);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+            Amplify.Auth.handleWebUISignInResponse(data);
+        }
+    }
+
 
 }

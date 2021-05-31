@@ -26,6 +26,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
+
     }
 }
 
@@ -63,11 +65,11 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
 
 
-
-
-
+    implementation 'com.amplifyframework:core:1.17.4'
     implementation 'com.amplifyframework:aws-api:1.17.4'
     implementation 'com.amplifyframework:aws-datastore:1.17.4'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.17.4'
 
     implementation 'androidx.multidex:multidex:2.0.1'
 

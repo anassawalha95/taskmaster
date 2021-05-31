@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplifyframework.AmplifyException;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.ArrayList;
@@ -39,14 +37,7 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.configure(getApplicationContext());
 
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
 
         tasks= new ArrayList<>();
         Amplify.DataStore.query(Task.class,
@@ -80,14 +71,7 @@ public class AllTasks extends AppCompatActivity implements ViewAdapter.OnTaskLis
     protected void onResume() {
         super.onResume();
 
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.configure(getApplicationContext());
 
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
 
         tasks= new ArrayList<>();
         Amplify.DataStore.query(Task.class,
