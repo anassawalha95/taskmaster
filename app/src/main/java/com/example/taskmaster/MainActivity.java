@@ -1,9 +1,7 @@
 package com.example.taskmaster;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
@@ -21,7 +20,7 @@ import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTaskListener {
@@ -37,9 +36,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
-        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String welcome_msg_text=spref.getString("Username","");
-        welcome_msg.setText(welcome_msg_text);
+//        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
 
@@ -62,12 +59,29 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         Amplify.Auth.fetchAuthSession(
                 result ->{
-                    if(!result.isSignedIn()){
+                    if(!result.isSignedIn()) {
                         Amplify.Auth.signInWithWebUI(
                                 this,
-                                results -> Log.i("AuthQuickStart failed1", result.toString()),
+                                results -> Log.i("AuthQuickStart failed1", results.toString()),
                                 error -> Log.e("AuthQuickStart failed2", error.toString())
                         );
+                    }else{
+
+                        Map<String, String> welcome_msg_text= null;
+                        try {
+                            welcome_msg_text = AWSMobileClient.getInstance().getUserAttributes();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (welcome_msg_text.get("name")!=null){
+                            welcome_msg.setText(welcome_msg_text.get("name"));
+                        }else
+                        {
+                            welcome_msg.setText(AWSMobileClient.getInstance().getUsername());
+
+                        }
+
+
                     }
                    },
                 error -> Log.e("AuthQuickStart ", error.toString())
@@ -111,19 +125,36 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
-        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        welcome_msg.setText(spref.getString("Username",""));
+//        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//
+//        welcome_msg.setText(spref.getString("Username",""));
 
 
         Amplify.Auth.fetchAuthSession(
                 result ->{
-                    if(!result.isSignedIn()){
+                    if(!result.isSignedIn()) {
                         Amplify.Auth.signInWithWebUI(
                                 this,
-                                results -> Log.i("AuthQuickStart failed1", result.toString()),
+                                results -> Log.i("AuthQuickStart failed1", results.toString()),
                                 error -> Log.e("AuthQuickStart failed2", error.toString())
                         );
+                    }else{
+
+                        Map<String, String> welcome_msg_text= null;
+                        try {
+                            welcome_msg_text = AWSMobileClient.getInstance().getUserAttributes();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (welcome_msg_text.get("name")!=null){
+                            welcome_msg.setText(welcome_msg_text.get("name"));
+                        }else
+                        {
+                            welcome_msg.setText(AWSMobileClient.getInstance().getUsername());
+
+                        }
+
+
                     }
                 },
                 error -> Log.e("AuthQuickStart ", error.toString())

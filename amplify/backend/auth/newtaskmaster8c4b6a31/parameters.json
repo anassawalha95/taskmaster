@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "newtaskmasterb8ddb07c_identitypool_b8ddb07c",
+    "identityPoolName": "newtaskmaster8c4b6a31_identitypool_8c4b6a31",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "newtasb8ddb07c",
-    "userPoolName": "newtaskmasterb8ddb07c_userpool_b8ddb07c",
+    "resourceNameTruncated": "newtas8c4b6a31",
+    "userPoolName": "newtaskmaster8c4b6a31_userpool_8c4b6a31",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,12 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "family_name",
+        "middle_name",
+        "gender",
+        "name",
+        "nickname"
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,10 +33,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "newtasb8ddb07c_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "newtas8c4b6a31_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "b8ddb07c",
-    "resourceName": "newtaskmasterb8ddb07c",
+    "sharedId": "8c4b6a31",
+    "resourceName": "newtaskmaster8c4b6a31",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,15 +51,18 @@
         ]
     },
     "useDefault": "defaultSocial",
-    "usernameAttributes": [
-        "email"
-    ],
+    "triggers": "{}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "breakCircularDependency": true,
+    "permissions": [],
     "dependsOn": [],
     "hostedUI": true,
-    "hostedUIDomainName": "newtaskmaster3be24f6b-3be24f6b",
+    "hostedUIDomainName": "newtaskmastere13f5878-e13f5878",
     "authProvidersUserPool": [],
     "hostedUIProviderMeta": "[]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"myapp://callback/\"],\"LogoutURLs\":[\"myapp://signout/\"]}",
