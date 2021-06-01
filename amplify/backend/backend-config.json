@@ -18,7 +18,7 @@
     }
   },
   "auth": {
-    "newtaskmasterb8ddb07c": {
+    "newtaskmaster8c4b6a31": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
