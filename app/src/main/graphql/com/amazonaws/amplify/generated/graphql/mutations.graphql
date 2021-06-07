@@ -8,6 +8,7 @@ mutation CreateTask(
     title
     status
     description
+    file
     _version
     _deleted
     _lastChangedAt
@@ -24,6 +25,7 @@ mutation UpdateTask(
     title
     status
     description
+    file
     _version
     _deleted
     _lastChangedAt
@@ -40,6 +42,7 @@ mutation DeleteTask(
     title
     status
     description
+    file
     _version
     _deleted
     _lastChangedAt

@@ -28,14 +28,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Topic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
@@ -86,7 +86,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:paddingTop="5dp"
@@ -97,13 +97,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_task_body" />
+        app:layout_constraintTop_toBottomOf="@+id/addFile" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="29dp"
-        android:layout_marginTop="60dp"
         android:layout_marginBottom="24dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -128,6 +127,32 @@
             android:text="0"
             android:textSize="18sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/addFile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="Select"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.122"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/add_task_body" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
+        android:text="Add File "
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/addFile"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

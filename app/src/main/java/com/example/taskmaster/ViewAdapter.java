@@ -10,12 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amplifyframework.datastore.generated.model.Task;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
-public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder>  {
+public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder>   {
+    public  interface OnTaskListener{
+        void onTaskClick(int position);
+    }
 
-    public List<Task> tasks=new ArrayList<Task>();
+    public List<Task> tasks;
     private OnTaskListener onTaskListener;
 
     public ViewAdapter(List<Task> tasks, OnTaskListener onTaskListener ) {
@@ -48,21 +52,19 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder>  {
 
     }
 
-    public  interface OnTaskListener{
-        void onTaskClick(int position);
-    }
 
-    @NonNull
+
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem= layoutInflater.inflate(R.layout.fragment_task, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(listItem, onTaskListener);
-        return viewHolder;
+        return new ViewHolder(listItem, onTaskListener);
 
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
