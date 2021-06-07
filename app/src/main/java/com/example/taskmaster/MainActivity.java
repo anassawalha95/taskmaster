@@ -17,7 +17,9 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
     public List <Task> tasks;
     RecyclerView recyclerView ;
+    ViewAdapter adapter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         try {
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
 
             Amplify.configure(getApplicationContext());
@@ -90,29 +94,30 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
 
 
-        tasks= new ArrayList<>();
+        this.tasks= new ArrayList<>();
         Amplify.DataStore.query(Task.class,
                 tasks -> {
                     while (tasks.hasNext()) {
                         Task task = tasks.next();
 
-                        if (task.getTitle() != null) {
-
+                        Log.d("tasks tasks", "onCreate: "+task);
                             this.tasks.add(task);
-                        }
+
 
                     }
+
+                    recyclerView =  findViewById(R.id.recyclerView);
+                    adapter= new ViewAdapter(this.tasks,this);
+                    recyclerView.setHasFixedSize(true);
+                    LinearLayoutManager linear=  new LinearLayoutManager(this);
+                    linear.setOrientation(RecyclerView.VERTICAL);
+                    recyclerView.setLayoutManager(linear);
+                    recyclerView.setAdapter(adapter);
+
+
                 },
                 failure -> Log.e("Tutorial", "Could not query DataStore", failure)
         );
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        ViewAdapter adapter = new ViewAdapter(tasks,this);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linear=  new LinearLayoutManager(this);
-        linear.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(linear);
-        recyclerView.setAdapter(adapter);
 
 
     }
@@ -125,9 +130,6 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
         TextView welcome_msg=(TextView)findViewById(R.id.welcome_msg);
 
-//        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//
-//        welcome_msg.setText(spref.getString("Username",""));
 
 
         Amplify.Auth.fetchAuthSession(
@@ -164,30 +166,21 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
 
 
 
-        tasks= new ArrayList<>();
+
         Amplify.DataStore.query(Task.class,
                 tasks -> {
                     while (tasks.hasNext()) {
                         Task task = tasks.next();
+                        Log.d("tasks tasks", "onCreate: "+task);
 
-                        if (task.getTitle() != null) {
-
+                        if(  !this.tasks.contains(task))
                             this.tasks.add(task);
-                        }
-
                     }
+
+                    adapter.notifyItemChanged(0, this.tasks.size());
                 },
                 failure -> Log.e("Tutorial", "Could not query DataStore", failure)
         );
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        ViewAdapter adapter = new ViewAdapter(tasks,this);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linear=  new LinearLayoutManager(this);
-        linear.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(linear);
-        recyclerView.setAdapter(adapter);
-
 
 
     }
@@ -222,13 +215,46 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
     public void onTaskClick(int position) {
 
 
-        Intent intent =new Intent(this, TaskDetail.class);
-        intent.putExtra("title",this.tasks.get(position).getTitle());
-        intent.putExtra("body",this.tasks.get(position).getDescription());
-        intent.putExtra("status",this.tasks.get(position).getStatus().toString());
 
 
-        startActivity(intent);
+        if(checkFileType(this.tasks.get(position).getFile())) {
+            Amplify.Storage.downloadFile(
+                    this.tasks.get(position).getFile(),
+                    new File(getApplicationContext().getFilesDir() +"/"+ this.tasks.get(position).getFile()),
+                    result -> {
+                        Intent intent =new Intent(this, TaskDetail.class);
+                        intent.putExtra("title",this.tasks.get(position).getTitle());
+                        intent.putExtra("body",this.tasks.get(position).getDescription());
+                        intent.putExtra("status",this.tasks.get(position).getStatus().toString());
+                        intent.putExtra("isFile", true);
+                        intent.putExtra("file", result.getFile());
+                        startActivity(intent);
+//                        Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getAbsolutePath());
+//                        Log.i("MyAmplifyApp", "Successfully downloaded file: " +getApplicationContext().getFilesDir() +"/"+ this.tasks.get(position).getFile());
+                    },
+                    error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+            );
+
+        }
+        else{
+            Amplify.Storage.getUrl(
+                    this.tasks.get(position).getFile(),
+                    result -> {
+                        Intent intent =new Intent(this, TaskDetail.class);
+                        intent.putExtra("title",this.tasks.get(position).getTitle());
+                        intent.putExtra("body",this.tasks.get(position).getDescription());
+                        intent.putExtra("status",this.tasks.get(position).getStatus().toString());
+                        intent.putExtra("isFile", false);
+                        intent.putExtra("file", result.getUrl());
+                        startActivity(intent);
+//                        Log.i("MyAmplifyApp", "Successfully generated: " + result.getUrl());
+
+                    },
+                    error -> Log.e("MyAmplifyApp", "URL generation failure", error)
+            );
+        }
+
+
     }
 
     @Override
@@ -238,7 +264,28 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
             Amplify.Auth.handleWebUISignInResponse(data);
         }
+
     }
+    protected boolean checkFileType(String fileName){
+
+        String[] okFileExtensions = new String[] {
+                ".jpg",
+                ".png",
+                ".gif",
+                ".jpeg"
+        };
+
+        for (String extension: okFileExtensions) {
+
+            Log.d("fileNametoLower", "checkFileType: "+fileName.toLowerCase().endsWith(extension));
+            if (fileName.toLowerCase().endsWith(extension)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
 
 }

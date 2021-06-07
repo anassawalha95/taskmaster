@@ -16,6 +16,7 @@ query SyncTasks(
       title
       status
       description
+      file
       _version
       _deleted
       _lastChangedAt
@@ -32,6 +33,7 @@ query GetTask($id: ID!) {
     title
     status
     description
+    file
     _version
     _deleted
     _lastChangedAt
@@ -50,6 +52,7 @@ query ListTasks(
       title
       status
       description
+      file
       _version
       _deleted
       _lastChangedAt

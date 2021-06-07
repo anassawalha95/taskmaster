@@ -10,4 +10,5 @@ type Task @model {
   title: String!
   status: Status
   description: String
+  file: String
 }

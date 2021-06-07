@@ -1,6 +1,5 @@
 package com.amplifyframework.datastore.generated.model;
 
-import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,12 +23,12 @@ public final class Task implements Model {
   public static final QueryField TITLE = field("Task", "title");
   public static final QueryField STATUS = field("Task", "status");
   public static final QueryField DESCRIPTION = field("Task", "description");
+  public static final QueryField FILE = field("Task", "file");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="Status") Status status;
   private final @ModelField(targetType="String") String description;
-  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
-  private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
+  private final @ModelField(targetType="String") String file;
   public String getId() {
       return id;
   }
@@ -46,19 +45,16 @@ public final class Task implements Model {
       return description;
   }
   
-  public Temporal.DateTime getCreatedAt() {
-      return createdAt;
+  public String getFile() {
+      return file;
   }
   
-  public Temporal.DateTime getUpdatedAt() {
-      return updatedAt;
-  }
-  
-  private Task(String id, String title, Status status, String description) {
+  private Task(String id, String title, Status status, String description, String file) {
     this.id = id;
     this.title = title;
     this.status = status;
     this.description = description;
+    this.file = file;
   }
   
   @Override
@@ -73,8 +69,7 @@ public final class Task implements Model {
               ObjectsCompat.equals(getTitle(), task.getTitle()) &&
               ObjectsCompat.equals(getStatus(), task.getStatus()) &&
               ObjectsCompat.equals(getDescription(), task.getDescription()) &&
-              ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
+              ObjectsCompat.equals(getFile(), task.getFile());
       }
   }
   
@@ -85,8 +80,7 @@ public final class Task implements Model {
       .append(getTitle())
       .append(getStatus())
       .append(getDescription())
-      .append(getCreatedAt())
-      .append(getUpdatedAt())
+      .append(getFile())
       .toString()
       .hashCode();
   }
@@ -99,8 +93,7 @@ public final class Task implements Model {
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("status=" + String.valueOf(getStatus()) + ", ")
       .append("description=" + String.valueOf(getDescription()) + ", ")
-      .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
-      .append("updatedAt=" + String.valueOf(getUpdatedAt()))
+      .append("file=" + String.valueOf(getFile()))
       .append("}")
       .toString();
   }
@@ -132,6 +125,7 @@ public final class Task implements Model {
       id,
       null,
       null,
+      null,
       null
     );
   }
@@ -140,7 +134,8 @@ public final class Task implements Model {
     return new CopyOfBuilder(id,
       title,
       status,
-      description);
+      description,
+      file);
   }
   public interface TitleStep {
     BuildStep title(String title);
@@ -152,6 +147,7 @@ public final class Task implements Model {
     BuildStep id(String id) throws IllegalArgumentException;
     BuildStep status(Status status);
     BuildStep description(String description);
+    BuildStep file(String file);
   }
   
 
@@ -160,6 +156,7 @@ public final class Task implements Model {
     private String title;
     private Status status;
     private String description;
+    private String file;
     @Override
      public Task build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -168,7 +165,8 @@ public final class Task implements Model {
           id,
           title,
           status,
-          description);
+          description,
+          file);
     }
     
     @Override
@@ -187,6 +185,12 @@ public final class Task implements Model {
     @Override
      public BuildStep description(String description) {
         this.description = description;
+        return this;
+    }
+    
+    @Override
+     public BuildStep file(String file) {
+        this.file = file;
         return this;
     }
     
@@ -213,11 +217,12 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, Status status, String description) {
+    private CopyOfBuilder(String id, String title, Status status, String description, String file) {
       super.id(id);
       super.title(title)
         .status(status)
-        .description(description);
+        .description(description)
+        .file(file);
     }
     
     @Override
@@ -233,6 +238,11 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder description(String description) {
       return (CopyOfBuilder) super.description(description);
+    }
+    
+    @Override
+     public CopyOfBuilder file(String file) {
+      return (CopyOfBuilder) super.file(file);
     }
   }
   
