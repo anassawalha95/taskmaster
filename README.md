@@ -81,3 +81,15 @@ Is an android app created for creating, monitoring and organizing user tasks
 
 
 ![login](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/login.PNG)
+
+
+### June 8 :
+
+- Added the functionality to use AWS Storage for uploading, viewing and downloading files
+
+ ![task details img](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/task-detailsLab37.png)
+
+ ![task details img](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/task-detailsLab37_1.png)
+ 
+ 
+ ![task details img](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/task-detailsLab37_2.png)
