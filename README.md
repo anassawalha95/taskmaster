@@ -100,3 +100,14 @@ Is an android app created for creating, monitoring and organizing user tasks
 - Added the functionality to use firebase notifications
 
  ![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/notificationLab38.png)
+
+
+### June 9  :
+
+- Added the functionality to Intent filter dirctly upload an image file to the taks file
+- 
+![intent filter1](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/intent-filterLab41_0.png)
+
+![intent filter2](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/intent-filterLab41_2.png)
+
+![intent filter3](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/intent-filterLab41_1.png)
