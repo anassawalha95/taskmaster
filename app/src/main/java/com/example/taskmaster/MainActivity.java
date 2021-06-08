@@ -142,6 +142,37 @@ public class MainActivity extends AppCompatActivity implements ViewAdapter.OnTas
         );
 
 
+
+    try {
+
+        Intent intent = getIntent();
+      //  Log.d(" image image", "image "+ intent.getType().contains("image/"));
+
+        if (intent.getType().contains("image/")) {
+            try {
+//                Uri dataa = intent.getData();
+//                Cursor returnCursor = getContentResolver().query(dataa, null, null, null, null);
+//                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+//                returnCursor.moveToFirst();
+//                String fileName = returnCursor.getString(nameIndex);
+//                File file = new File(getApplicationContext().getFilesDir(), fileName);
+//                InputStream inputStream =  getContentResolver().openInputStream(dataa);
+//                OutputStream outputStream = new FileOutputStream(file);
+
+            Intent i= new Intent(this,AddTask.class);
+
+                i.putExtra("intentFilterFile", intent);
+                startActivity(i);
+
+            }catch (Exception e)
+            {
+                System.out.println(e);
+            }
+
+          }
+        }catch (Exception e){
+
+        }
     }
 
     @Override
