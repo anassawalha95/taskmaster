@@ -55,6 +55,7 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(getFile()!=null)
                 uploadFile(getFile(), getFileName());
                 EditText title = (EditText) findViewById(R.id.add_task_title);
                 EditText body = (EditText) findViewById(R.id.add_task_body);
@@ -82,6 +83,94 @@ public class AddTask extends AppCompatActivity {
                 getFileFromStorage();
             }
         });
+
+        try {
+            Log.d("intent.getData()", "intent.getData()" + getIntent().hasExtra("intentFilterFile"));
+            if (getIntent().hasExtra("intentFilterFile")) {
+                Intent intent = (Intent) getIntent().getExtras().get("intentFilterFile");
+                Bundle bundle = intent.getExtras();
+                Uri dataa = (Uri) bundle.get(intent.EXTRA_STREAM);
+                Log.d("intent.getData()", "intent.getData()" + dataa);
+                // Uri dataa = intent.getData();
+                Cursor returnCursor = getContentResolver().query(dataa, null, null, null, null);
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+                String fileName = returnCursor.getString(nameIndex);
+                Log.i("fileNameqcqw", "fileName fileName" + fileName);
+                File file = new File(getApplicationContext().getFilesDir(), fileName);
+                InputStream inputStream = getContentResolver().openInputStream(dataa);
+                OutputStream outputStream = new FileOutputStream(file);
+                try {
+                    //resultData.setType(  getContentResolver().getType(resultData.getData()));
+                    InputStream i =  getContentResolver().openInputStream(dataa);
+                    OutputStream o = new FileOutputStream(file);
+                    byte[] buf = new byte[1024];
+                    int len;
+                    while ((len = i.read (buf)) >0){
+                        o.write(buf, 0, len);
+                    }
+                    inputStream.close();
+                    outputStream.close();
+                    setFile(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }catch (FileNotFoundException e) {
+                e.printStackTrace();
+        }
+
+
+
+
+//        try {
+//            try {
+//            Amplify.addPlugin(new AWSDataStorePlugin());
+//            Amplify.addPlugin(new AWSApiPlugin());
+//            Amplify.addPlugin(new AWSS3StoragePlugin());
+//            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+//
+//            Amplify.configure(getApplicationContext());
+//
+//            Log.i("Tutorial", "Initialized Amplify");
+//        } catch (AmplifyException e) {
+//            Log.e("Tutorial", "Could not initialize Amplify", e);
+//        }
+//
+//            //  Log.d(" image image", "image "+ intent.getType().contains("image/"));
+//            if (getIntent().getType().contains("image/")) {
+//                try {
+//                    Intent intent= this.getIntent();
+//                    Bundle bundle = intent.getExtras();
+//                    Uri dataa = (Uri)bundle.get(intent.EXTRA_STREAM);
+//                    Log.d("intent.getData()", "intent.getData()"+dataa);
+//                   // Uri dataa = intent.getData();
+//                    Cursor returnCursor = getContentResolver().query(dataa, null, null, null, null);
+//                    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+//                    returnCursor.moveToFirst();
+//                    String fileName = returnCursor.getString(nameIndex);
+//                    Log.i("fileNameqcqw", "fileName fileName"+fileName);
+//                    File file = new File(getApplicationContext().getFilesDir(), fileName);
+//                    InputStream inputStream =  getContentResolver().openInputStream(dataa);
+//                    OutputStream outputStream = new FileOutputStream(file);
+//                    setFile(file);
+//
+//                    //       Intent i= new Intent(this,AddTask.class);
+////                    intent.putExtra("intentFilterFile", intent.getData());
+////                    startActivity(intent);
+//
+//                }catch (Exception e)
+//                {
+//                    System.out.println(e);
+//                }
+//
+//            }
+//        }catch (Exception e){
+//            System.out.println(e);
+//        }
     }
 
     public void uploadFile(File file, String fileName) {
@@ -103,6 +192,8 @@ public class AddTask extends AppCompatActivity {
     }
 
     public String getFileName(){
+        if(getFile()==null)
+            return "";
         return this.file.getName();
     }
 
