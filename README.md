@@ -93,3 +93,10 @@ Is an android app created for creating, monitoring and organizing user tasks
  
  
  ![task details img](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/task-detailsLab37_2.png)
+ 
+ 
+### June 8  after daylight:
+
+- Added the functionality to use firebase notifications
+
+ ![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/notificationLab38.png)
