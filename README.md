@@ -99,7 +99,7 @@ Is an android app created for creating, monitoring and organizing user tasks
 
 - Added the functionality to use firebase notifications
 
- ![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/notificationLab38.png)
+ ![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/login.PNG?raw=true)
 
 
 ### June 9  :
