@@ -100,6 +100,8 @@ Is an android app created for creating, monitoring and organizing user tasks
 - Added the functionality to use firebase notifications
 
  ![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/login.PNG?raw=true)
+ 
+  ![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/signup.jpg)
 
 
 ### June 9  :
