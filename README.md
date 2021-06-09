@@ -82,6 +82,7 @@ Is an android app created for creating, monitoring and organizing user tasks
 
 ![login](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/login.PNG)
 
+![notifications](https://github.com/anassawalha95/taskmaster/blob/mainForResubmission/screenshots/signup.jpg)
 
 ### June 8 :
 
